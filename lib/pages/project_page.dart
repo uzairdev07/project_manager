@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:khata_app/widgtes/contact_list.dart';
+import 'package:khata_app/pages/add_customer_project.dart';
 import 'package:khata_app/widgtes/total_money_button.dart';
 
 class ProjectPage extends StatelessWidget {
@@ -45,7 +45,6 @@ class ProjectPage extends StatelessWidget {
                   border: InputBorder.none,
                 ),
               ),
-              const ContactList(),
             ],
           ),
           Positioned(
@@ -55,7 +54,13 @@ class ProjectPage extends StatelessWidget {
             child: Container(
               alignment: Alignment.center,
               child: ElevatedButton.icon(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const AddCustomerProjectPage(),
+                    ),
+                  );
+                },
                 label: const Text('ADD PROJECT'),
                 icon: const Icon(
                   Icons.add,

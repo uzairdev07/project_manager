@@ -10,43 +10,42 @@ class ProjectCell extends StatelessWidget {
       children: [
         Expanded(
           flex: 4,
-          child: Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  '1st June, 11:14 AM',
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                '1st June, 11:14 AM',
+              ),
+              const Text(
+                'Java Distinct Cities + Report',
+                overflow: TextOverflow.ellipsis,
+                maxLines: 3,
+              ),
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 2.0, horizontal: 4.0),
+                decoration: BoxDecoration(
+                  color: Colors.red.shade50,
+                  borderRadius: BorderRadius.circular(4.0),
                 ),
-                Text(
-                  'Java Distinct Cities + Report',
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 3,
+                child: const Text(
+                  'Bal Rs. 52,500',
                 ),
-                Container(
-                  padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 4.0),
-                  decoration: BoxDecoration(
-                    color: Colors.red.shade50,
-                    borderRadius: BorderRadius.circular(4.0),
-                  ),
-                  child: Text(
-                    'Bal Rs. 52,500',
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
-        SizedBox(
+        const SizedBox(
           width: 20,
         ),
-        Expanded(
+        const Expanded(
           flex: 3,
           child: Text(
             'Rs. 52,000',
             textAlign: TextAlign.center,
           ),
         ),
-        Expanded(
+        const Expanded(
           flex: 3,
           child: Text(
             'Rs. 52,000',
