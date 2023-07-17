@@ -1,5 +1,6 @@
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
+import 'package:khata_app/widgtes/customer_list.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class ContactList extends StatefulWidget {
@@ -17,6 +18,7 @@ class _ContactListState extends State<ContactList> {
   int _contactsPerPage = 15;
   bool _isLoading = false;
   ScrollController _scrollController = ScrollController();
+  CustomerList customerList = CustomerList();
 
   @override
   void initState() {
@@ -75,7 +77,6 @@ class _ContactListState extends State<ContactList> {
     if (_scrollController.position.pixels ==
         _scrollController.position.maxScrollExtent) {
       if (!_isLoading) {
-        // Load the next page if not already loading
         _currentPage++;
         _fetchContacts();
       }
@@ -96,22 +97,18 @@ class _ContactListState extends State<ContactList> {
         widget.searchQuery != null && widget.searchQuery!.isNotEmpty
             ? _getFilteredContacts(widget.searchQuery!)
             : _contacts;
-
     return Expanded(
       child: ListView.builder(
         controller: _scrollController,
-        itemCount: filteredContacts.length +
-            1, // +1 for the loading indicator at the end
+        itemCount: filteredContacts.length + 1,
         itemBuilder: (context, index) {
           if (index == filteredContacts.length) {
-            // Show the circular progress indicator at the end of the list
             return _isLoading
                 ? const Center(
                     child: CircularProgressIndicator(),
                   )
                 : const SizedBox.shrink();
           } else {
-            // Show the contacts list item
             final contact = filteredContacts[index];
             return ListTile(
               title: Text(contact.displayName.toString()),

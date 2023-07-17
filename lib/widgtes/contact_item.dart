@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:khata_app/models/contact.dart';
+import 'package:khata_app/models/customer.dart';
 import 'package:khata_app/pages/customer_projects_page.dart';
 
 class ContactItem extends StatelessWidget {
-  MyContact contact;
+  Customer contact;
 
   ContactItem({super.key, required this.contact});
 
