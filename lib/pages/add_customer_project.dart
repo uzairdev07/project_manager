@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:khata_app/models/customer.dart';
 import 'package:khata_app/widgtes/contact_list.dart';
 
 class AddCustomerProjectPage extends StatefulWidget {
@@ -32,7 +33,16 @@ class _AddCustomerProjectPageState extends State<AddCustomerProjectPage> {
               border: InputBorder.none,
             ),
           ),
-          ContactList(searchQuery: _searchQuery),
+          ContactList(
+            searchQuery: _searchQuery,
+            onAddCustomer: (contact) {
+              Customer newCustomer = Customer(
+                contact.displayName ?? 'Unknown',
+                0,
+              );
+              Navigator.pop(context, newCustomer);
+            },
+          ),
         ],
       ),
     );

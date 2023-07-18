@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
 class TotalMoneyButton extends StatefulWidget {
+  double money;
   IconData? icon;
   Color? textColor;
   Color? bgColor;
 
   TotalMoneyButton(
       {super.key,
+      required this.money,
       required this.icon,
       required this.textColor,
       required this.bgColor});
@@ -19,8 +21,7 @@ class _TotalMoneyButtonState extends State<TotalMoneyButton> {
   @override
   Widget build(BuildContext context) {
     return FractionallySizedBox(
-      widthFactor:
-          0.9, // Adjust this value to control the width of the Container
+      widthFactor: 1,
       child: Container(
         padding: const EdgeInsets.all(8.0),
         decoration: BoxDecoration(
@@ -50,7 +51,7 @@ class _TotalMoneyButtonState extends State<TotalMoneyButton> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Rs. 92,208',
+                    'Rs. ' + widget.money.toString(),
                     style: TextStyle(
                       color: widget.textColor,
                       fontWeight: FontWeight.bold,

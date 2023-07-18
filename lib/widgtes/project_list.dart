@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:khata_app/widgtes/project_cell.dart';
+import 'package:khata_app/models/customer.dart';
 
 class ProjectList extends StatelessWidget {
-  const ProjectList({super.key});
+  Customer customer;
+  ProjectList({super.key, required this.customer});
 
   @override
   Widget build(BuildContext context) {
@@ -35,11 +36,6 @@ class ProjectList extends StatelessWidget {
           ],
         ),
         Divider(),
-        ProjectCell(),
-        Divider(),
-        ProjectCell(),
-        Divider(),
-        ProjectCell(),
       ],
     );
   }

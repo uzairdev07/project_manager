@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:khata_app/models/customer.dart';
 import 'package:khata_app/widgtes/project_list.dart';
 import 'package:khata_app/widgtes/text_icon.dart';
 import 'package:khata_app/widgtes/total_money_button.dart';
 
 class CustomerProjectPage extends StatefulWidget {
-  const CustomerProjectPage({Key? key});
+  Customer customer;
+
+  CustomerProjectPage({super.key, required this.customer});
 
   @override
   State<CustomerProjectPage> createState() => _CustomerProjectPageState();
@@ -17,12 +20,12 @@ class _CustomerProjectPageState extends State<CustomerProjectPage> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
-        title: Text('Customer Name'),
+        title: Text(widget.customer.getName),
         actions: [
           IconButton(
             icon: const Icon(Icons.more_vert),
@@ -38,6 +41,7 @@ class _CustomerProjectPageState extends State<CustomerProjectPage> {
           child: Column(
             children: [
               TotalMoneyButton(
+                money: widget.customer.getPayment,
                 icon: Icons.arrow_downward_outlined,
                 textColor: Colors.red,
                 bgColor: Colors.red.withOpacity(0.2),
@@ -75,7 +79,7 @@ class _CustomerProjectPageState extends State<CustomerProjectPage> {
               const SizedBox(
                 height: 8.0,
               ),
-              const ProjectList(),
+              ProjectList(customer: widget.customer),
             ],
           ),
         ),

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:khata_app/models/Project.dart';
 
 class ProjectCell extends StatelessWidget {
-  const ProjectCell({Key? key});
+  Project project;
+
+  ProjectCell({super.key, required this.project});
 
   @override
   Widget build(BuildContext context) {

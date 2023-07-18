@@ -1,12 +1,13 @@
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
-import 'package:khata_app/widgtes/customer_list.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class ContactList extends StatefulWidget {
   final String? searchQuery;
+  final Function(Contact) onAddCustomer;
 
-  const ContactList({Key? key, this.searchQuery}) : super(key: key);
+  const ContactList({Key? key, this.searchQuery, required this.onAddCustomer})
+      : super(key: key);
 
   @override
   _ContactListState createState() => _ContactListState();
@@ -18,7 +19,6 @@ class _ContactListState extends State<ContactList> {
   int _contactsPerPage = 15;
   bool _isLoading = false;
   ScrollController _scrollController = ScrollController();
-  CustomerList customerList = CustomerList();
 
   @override
   void initState() {
@@ -105,8 +105,8 @@ class _ContactListState extends State<ContactList> {
           if (index == filteredContacts.length) {
             return _isLoading
                 ? const Center(
-                    child: CircularProgressIndicator(),
-                  )
+              child: CircularProgressIndicator(),
+            )
                 : const SizedBox.shrink();
           } else {
             final contact = filteredContacts[index];
@@ -114,7 +114,10 @@ class _ContactListState extends State<ContactList> {
               title: Text(contact.displayName.toString()),
               onTap: () {},
               trailing: TextButton.icon(
-                onPressed: () {},
+                onPressed: () {
+                  // Call the onAddCustomer function when the "Add" button is pressed
+                  widget.onAddCustomer(contact);
+                },
                 icon: const Icon(
                   Icons.add,
                 ),

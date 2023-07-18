@@ -2,24 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:khata_app/models/customer.dart';
 import 'package:khata_app/pages/customer_projects_page.dart';
 
-class ContactItem extends StatelessWidget {
-  Customer contact;
+class CustomerItem extends StatelessWidget {
+  Customer customer;
 
-  ContactItem({super.key, required this.contact});
+  CustomerItem({super.key, required this.customer});
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(contact.getName),
+      title: Text(customer.getName),
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => const CustomerProjectPage(),
+            builder: (context) => CustomerProjectPage(
+              customer: customer,
+            ),
           ),
         );
       },
       leading: const Icon(Icons.person),
-      trailing: Text(contact.getPayment.toString()),
+      trailing: Text(customer.getPayment.toString()),
     );
   }
 }

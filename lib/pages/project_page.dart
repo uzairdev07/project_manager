@@ -1,9 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:khata_app/models/customer.dart';
 import 'package:khata_app/pages/add_customer_project.dart';
+import 'package:khata_app/widgtes/customer_list.dart';
 import 'package:khata_app/widgtes/total_money_button.dart';
 
-class ProjectPage extends StatelessWidget {
-  const ProjectPage({super.key});
+class ProjectPage extends StatefulWidget {
+  const ProjectPage({Key? key}) : super(key: key);
+
+  @override
+  State<ProjectPage> createState() => _ProjectPageState();
+}
+
+class _ProjectPageState extends State<ProjectPage> {
+  List<Customer> customers = [];
+
+  void _navigateToAddCustomer() async {
+    final Customer? newCustomer = await Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => AddCustomerProjectPage(),
+      ),
+    );
+
+    if (newCustomer != null) {
+      setState(() {
+        customers.add(newCustomer);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +42,7 @@ class ProjectPage extends StatelessWidget {
                   children: [
                     Expanded(
                       child: TotalMoneyButton(
+                        money: 0,
                         icon: Icons.arrow_downward,
                         textColor: Colors.red,
                         bgColor: Colors.red.withOpacity(0.2),
@@ -29,6 +53,7 @@ class ProjectPage extends StatelessWidget {
                     ),
                     Expanded(
                       child: TotalMoneyButton(
+                        money: 0,
                         icon: Icons.arrow_upward,
                         textColor: Colors.green,
                         bgColor: Colors.green.withOpacity(0.2),
@@ -45,6 +70,8 @@ class ProjectPage extends StatelessWidget {
                   border: InputBorder.none,
                 ),
               ),
+              const SizedBox(height: 10),
+              Expanded(child: CustomerList(customers: customers)),
             ],
           ),
           Positioned(
@@ -54,13 +81,7 @@ class ProjectPage extends StatelessWidget {
             child: Container(
               alignment: Alignment.center,
               child: ElevatedButton.icon(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const AddCustomerProjectPage(),
-                    ),
-                  );
-                },
+                onPressed: _navigateToAddCustomer,
                 label: const Text('ADD PROJECT'),
                 icon: const Icon(
                   Icons.add,
