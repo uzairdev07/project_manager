@@ -82,7 +82,7 @@ class _ProjectPageState extends State<ProjectPage> {
               alignment: Alignment.center,
               child: ElevatedButton.icon(
                 onPressed: _navigateToAddCustomer,
-                label: const Text('ADD PROJECT'),
+                label: const Text('ADD CUSTOMER'),
                 icon: const Icon(
                   Icons.add,
                 ),

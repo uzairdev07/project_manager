@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:khata_app/models/Project.dart';
 
 class ProjectCell extends StatelessWidget {
@@ -8,53 +9,75 @@ class ProjectCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    String formattedDateTime =
+        DateFormat("d MMM, yy h:mm a").format(project.getDateTime);
+    double remaining = project.getBudget - project.getReceived();
+    return Column(
       children: [
-        Expanded(
-          flex: 4,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-                '1st June, 11:14 AM',
-              ),
-              const Text(
-                'Java Distinct Cities + Report',
-                overflow: TextOverflow.ellipsis,
-                maxLines: 3,
-              ),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 2.0, horizontal: 4.0),
-                decoration: BoxDecoration(
-                  color: Colors.red.shade50,
-                  borderRadius: BorderRadius.circular(4.0),
+              Expanded(
+                flex: 4,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      formattedDateTime,
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      project.getDesc,
+                      style: const TextStyle(
+                        fontSize: 14,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 3,
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 2.0, horizontal: 4.0),
+                      decoration: BoxDecoration(
+                        color: Colors.red.shade50,
+                        borderRadius: BorderRadius.circular(4.0),
+                      ),
+                      child: Text('Bal. $remaining'),
+                    ),
+                  ],
                 ),
-                child: const Text(
-                  'Bal Rs. 52,500',
+              ),
+              const SizedBox(
+                width: 20,
+              ),
+              Expanded(
+                flex: 3,
+                child: Text(
+                  'Rs. ${project.getBudget}',
+                  style: const TextStyle(
+                    color: Colors.red,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              Expanded(
+                flex: 3,
+                child: Text(
+                  'Rs. ${project.getReceived()}',
+                  style: const TextStyle(
+                    color: Colors.green,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
               ),
             ],
           ),
         ),
-        const SizedBox(
-          width: 20,
-        ),
-        const Expanded(
-          flex: 3,
-          child: Text(
-            'Rs. 52,000',
-            textAlign: TextAlign.center,
-          ),
-        ),
-        const Expanded(
-          flex: 3,
-          child: Text(
-            'Rs. 52,000',
-            textAlign: TextAlign.center,
-          ),
-        ),
+        const Divider(),
       ],
     );
   }

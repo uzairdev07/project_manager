@@ -16,7 +16,7 @@ class ContactList extends StatefulWidget {
 class _ContactListState extends State<ContactList> {
   List<Contact> _contacts = [];
   int _currentPage = 1;
-  int _contactsPerPage = 15;
+  int _contactsPerPage = 1000;
   bool _isLoading = false;
   ScrollController _scrollController = ScrollController();
 
@@ -105,8 +105,8 @@ class _ContactListState extends State<ContactList> {
           if (index == filteredContacts.length) {
             return _isLoading
                 ? const Center(
-              child: CircularProgressIndicator(),
-            )
+                    child: CircularProgressIndicator(),
+                  )
                 : const SizedBox.shrink();
           } else {
             final contact = filteredContacts[index];

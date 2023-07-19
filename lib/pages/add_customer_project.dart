@@ -39,6 +39,7 @@ class _AddCustomerProjectPageState extends State<AddCustomerProjectPage> {
               Customer newCustomer = Customer(
                 contact.displayName ?? 'Unknown',
                 0,
+                [],
               );
               Navigator.pop(context, newCustomer);
             },

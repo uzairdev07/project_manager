@@ -21,7 +21,7 @@ class CustomerItem extends StatelessWidget {
         );
       },
       leading: const Icon(Icons.person),
-      trailing: Text(customer.getPayment.toString()),
+      trailing: Text(customer.getTotal.toString()),
     );
   }
 }
