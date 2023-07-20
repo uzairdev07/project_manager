@@ -1,4 +1,4 @@
-#Wed Jul 19 18:01:21 PKT 2023
+#Thu Jul 20 09:05:32 PKT 2023
 base.0=C\:\\Users\\ozair\\khata_app\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 path.0=classes.dex
 renamed.0=classes.dex
