@@ -38,7 +38,8 @@ class _CustomerProjectPageState extends State<CustomerProjectPage> {
   }
 
   void _navigateToPaymentsPage(Project project) async {
-    Project updatedProject = await Navigator.of(context).push(
+    Project updatedProject = await Navigator.push(
+      context,
       MaterialPageRoute(
         builder: (context) => PaymentsPage(
           project: project,
@@ -84,6 +85,7 @@ class _CustomerProjectPageState extends State<CustomerProjectPage> {
               Column(
                 children: [
                   TotalMoneyButton(
+                    label: 'To Get',
                     money: widget.customer.totalAmount(),
                     icon: Icons.arrow_downward_outlined,
                     textColor: widget.customer.getTotal == 0

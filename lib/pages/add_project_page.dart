@@ -184,6 +184,9 @@ class _AddProjectPageState extends State<AddProjectPage> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor:
                         Theme.of(context).primaryColor.withOpacity(0.6),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
                   ),
                   child: Text(
                     'Save',

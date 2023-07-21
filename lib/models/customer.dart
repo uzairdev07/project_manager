@@ -9,9 +9,7 @@ class Customer {
 
   void addProject(Project project) {
     projects.add(project);
-    for (Project project in projects) {
-      total += project.getBudget - project.getReceived();
-    }
+    total += project.getBudget;
   }
 
   void updateProject(Project updatedProject) {

@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
 
 class UserProfile extends StatefulWidget {
-  const UserProfile({super.key});
+  final String userName;
+  final String userEmail;
+  final String userImage;
+
+  const UserProfile({
+    required this.userName,
+    required this.userEmail,
+    required this.userImage,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<UserProfile> createState() => _UserProfileState();
@@ -16,27 +25,24 @@ class _UserProfileState extends State<UserProfile> {
       color: Colors.grey[100],
       child: Row(
         children: [
-          const CircleAvatar(
-            child: Icon(
-              Icons.person_2_outlined,
-            ),
+          CircleAvatar(
+            backgroundImage: NetworkImage(widget.userImage),
+            child: widget.userImage.isEmpty
+                ? const Icon(Icons.person_2_outlined)
+                : null,
           ),
-          const SizedBox(
-            width: 12.0,
-          ),
-          const Column(
+          const SizedBox(width: 12.0),
+          Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'User Name',
-                style: TextStyle(
+                widget.userName,
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(
-                height: 2.0,
-              ),
-              Text('03144912073'),
+              const SizedBox(height: 2.0),
+              Text(widget.userEmail),
             ],
           ),
           Expanded(

@@ -5,10 +5,12 @@ class TotalMoneyButton extends StatefulWidget {
   IconData? icon;
   Color? textColor;
   Color? bgColor;
+  String label;
 
   TotalMoneyButton(
       {super.key,
       required this.money,
+      required this.label,
       required this.icon,
       required this.textColor,
       required this.bgColor});
@@ -58,7 +60,7 @@ class _TotalMoneyButtonState extends State<TotalMoneyButton> {
                     ),
                   ),
                   Text(
-                    'Maine lene hain',
+                    widget.label,
                     style: TextStyle(
                       fontSize: 10.0,
                       color: widget.textColor,

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "218363670951",
+    "project_id": "project-manager-3aa77",
+    "storage_bucket": "project-manager-3aa77.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:218363670951:android:1fd09d4cedc640f63f8682",
+        "android_client_info": {
+          "package_name": "com.code.khata_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "218363670951-papaukl7fi08n0uui3vgidkn3su7tevi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBznFjWwsezzfiGCus7DEdrczZUVHGccGs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "218363670951-papaukl7fi08n0uui3vgidkn3su7tevi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
