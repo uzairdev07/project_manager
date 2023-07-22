@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:khata_app/models/Project.dart';
@@ -5,6 +7,7 @@ import 'package:khata_app/models/customer.dart';
 import 'package:khata_app/pages/add_customer_project.dart';
 import 'package:khata_app/pages/customer_projects_page.dart';
 import 'package:khata_app/widgtes/total_money_button.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProjectPage extends StatefulWidget {
   const ProjectPage({Key? key}) : super(key: key);
@@ -13,8 +16,30 @@ class ProjectPage extends StatefulWidget {
   State<ProjectPage> createState() => _ProjectPageState();
 }
 
-class _ProjectPageState extends State<ProjectPage> {
+class _ProjectPageState extends State<ProjectPage>
+    with AutomaticKeepAliveClientMixin<ProjectPage> {
   List<Customer> customers = [];
+
+  // Method to save the list of customers to SharedPreferences
+  Future<void> saveCustomers() async {
+    final prefs = await SharedPreferences.getInstance();
+    final customerList =
+        customers.map((customer) => customer.toJson()).toList();
+    await prefs.setString('customerList', jsonEncode(customerList));
+  }
+
+  // Method to load the list of customers from SharedPreferences
+  Future<void> loadCustomers() async {
+    final prefs = await SharedPreferences.getInstance();
+    final jsonString = prefs.getString('customerList');
+    if (jsonString != null) {
+      final customerList = jsonDecode(jsonString) as List;
+      setState(() {
+        customers =
+            customerList.map((json) => Customer.fromJson(json)).toList();
+      });
+    }
+  }
 
   void _navigateToAddCustomer() async {
     final Customer? newCustomer = await Navigator.of(context).push(
@@ -27,6 +52,7 @@ class _ProjectPageState extends State<ProjectPage> {
       setState(() {
         customers.add(newCustomer);
       });
+      saveCustomers();
     }
   }
 
@@ -45,6 +71,7 @@ class _ProjectPageState extends State<ProjectPage> {
         setState(() {
           customers[index] = result;
         });
+        saveCustomers();
       }
     }
   }
@@ -70,87 +97,94 @@ class _ProjectPageState extends State<ProjectPage> {
   }
 
   @override
+  bool get wantKeepAlive => true;
+
+  @override
+  void initState() {
+    super.initState();
+    loadCustomers();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 8.0),
       child: Stack(
         children: [
-          Expanded(
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: TotalMoneyButton(
-                          label: 'To Get',
-                          money: totalAmountToGet(),
-                          icon: Icons.arrow_downward,
-                          textColor: Colors.red,
-                          bgColor: Colors.red.withOpacity(0.2),
-                        ),
+          Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TotalMoneyButton(
+                        label: 'To Get',
+                        money: totalAmountToGet(),
+                        icon: Icons.arrow_downward,
+                        textColor: Colors.red,
+                        bgColor: Colors.red.withOpacity(0.2),
                       ),
-                      const SizedBox(
-                        width: 20,
+                    ),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    Expanded(
+                      child: TotalMoneyButton(
+                        label: 'Received',
+                        money: totalAmountReceived(),
+                        icon: Icons.arrow_upward,
+                        textColor: Colors.green,
+                        bgColor: Colors.green.withOpacity(0.2),
                       ),
-                      Expanded(
-                        child: TotalMoneyButton(
-                          label: 'Received',
-                          money: totalAmountReceived(),
-                          icon: Icons.arrow_upward,
-                          textColor: Colors.green,
-                          bgColor: Colors.green.withOpacity(0.2),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                const TextField(
-                  autofocus: false,
-                  decoration: InputDecoration(
-                    hintText: 'Search Customer',
-                    prefixIcon: Icon(Icons.search_outlined),
-                    border: InputBorder.none,
-                  ),
+              ),
+              const TextField(
+                autofocus: false,
+                decoration: InputDecoration(
+                  hintText: 'Search Customer',
+                  prefixIcon: Icon(Icons.search_outlined),
+                  border: InputBorder.none,
                 ),
-                const SizedBox(height: 10),
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: customers.length,
-                    itemBuilder: (context, index) {
-                      final customer = customers[index];
-                      return Slidable(
-                        key: Key(customer.getName),
-                        endActionPane: ActionPane(
-                          motion: const BehindMotion(),
-                          dismissible: DismissiblePane(
-                            onDismissed: () => _onDelete(index, Actions.delete),
+              ),
+              const SizedBox(height: 10),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: customers.length,
+                  itemBuilder: (context, index) {
+                    final customer = customers[index];
+                    return Slidable(
+                      key: Key(customer.getName),
+                      endActionPane: ActionPane(
+                        motion: const BehindMotion(),
+                        dismissible: DismissiblePane(
+                          onDismissed: () => _onDelete(index, Actions.delete),
+                        ),
+                        children: [
+                          SlidableAction(
+                            onPressed: (context) =>
+                                _onDelete(index, Actions.delete),
+                            backgroundColor: Colors.red.shade300,
+                            icon: Icons.delete,
+                            label: 'Delete',
                           ),
-                          children: [
-                            SlidableAction(
-                              onPressed: (context) =>
-                                  _onDelete(index, Actions.delete),
-                              backgroundColor: Colors.red.shade300,
-                              icon: Icons.delete,
-                              label: 'Delete',
-                            ),
-                          ],
-                        ),
-                        child: ListTile(
-                          title: Text(customer.getName),
-                          onTap: () {
-                            _navigateToCustomerProjectPage(customer);
-                          },
-                          leading: const Icon(Icons.person),
-                          trailing: Text('${customer.totalAmount()}'),
-                        ),
-                      );
-                    },
-                  ),
+                        ],
+                      ),
+                      child: ListTile(
+                        title: Text(customer.getName),
+                        onTap: () {
+                          _navigateToCustomerProjectPage(customer);
+                        },
+                        leading: const Icon(Icons.person),
+                        trailing: Text('${customer.totalAmount()}'),
+                      ),
+                    );
+                  },
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
           Positioned(
             bottom: 10.0,
@@ -185,6 +219,7 @@ class _ProjectPageState extends State<ProjectPage> {
         setState(() {
           customers.add(customer);
         });
+        saveCustomers();
       },
     );
   }

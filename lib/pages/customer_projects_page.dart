@@ -255,22 +255,22 @@ class _CustomerProjectPageState extends State<CustomerProjectPage> {
                       ],
                     ),
                   ),
-                  Positioned(
-                    bottom: 10.0,
-                    left: 0,
-                    right: 0,
-                    child: Container(
-                      alignment: Alignment.center,
-                      child: ElevatedButton.icon(
-                        onPressed: _navigateToAddProjectPage,
-                        label: const Text('ADD PROJECT'),
-                        icon: const Icon(
-                          Icons.add,
-                        ),
-                      ),
+                ],
+              ),
+              Positioned(
+                bottom: 10.0,
+                left: 0,
+                right: 0,
+                child: Container(
+                  alignment: Alignment.center,
+                  child: ElevatedButton.icon(
+                    onPressed: _navigateToAddProjectPage,
+                    label: const Text('ADD PROJECT'),
+                    icon: const Icon(
+                      Icons.add,
                     ),
                   ),
-                ],
+                ),
               ),
             ],
           ),

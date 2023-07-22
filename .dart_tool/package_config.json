@@ -104,6 +104,24 @@
       "languageVersion": "2.18"
     },
     {
+      "name": "firebase_database",
+      "rootUri": "file:///C:/Users/ozair/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_database-10.2.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
+      "name": "firebase_database_platform_interface",
+      "rootUri": "file:///C:/Users/ozair/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_database_platform_interface-0.2.5+4",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
+      "name": "firebase_database_web",
+      "rootUri": "file:///C:/Users/ozair/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_database_web-0.2.3+4",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
       "name": "flutter",
       "rootUri": "file:///C:/src/flutter_windows_3.10.5-stable/flutter/packages/flutter",
       "packageUri": "lib/",
@@ -410,7 +428,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2023-07-21T07:10:48.389206Z",
+  "generated": "2023-07-22T13:35:39.063773Z",
   "generator": "pub",
   "generatorVersion": "3.0.5"
 }
